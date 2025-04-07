@@ -30,21 +30,22 @@ local data = {
 }
 
 -- Convert to JSON and Send Request
-local body = game:GetService("HttpService"):JSONEncode(data)
+local HttpService = game:GetService("HttpService")
+local body = HttpService:JSONEncode(data)
 local headers = {["Content-Type"] = "application/json"}
 
 local success, errorMsg
 
-if http_request then
+local http_request = (http_request and function(params) return http_request(params) end) or
+                     (syn and syn.request) or
+                     (http and http.request) -- Add http as fallback if available
+
+if not http_request then
+    warn("No HTTP request method found!")
+else
     success, errorMsg = pcall(function()
         http_request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
     end)
-elseif syn and syn.request then
-    success, errorMsg = pcall(function()
-        syn.request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
-    end)
-else
-    warn("No HTTP request method found!")
 end
 
 if not success then
@@ -113,7 +114,6 @@ local function setAntiLag(value)
     if isAntiLagEnabled then
         print("Anti-Lag Enabled")
         -- Add the functionality for Anti-Lag here
-        -- Example: Lowering graphics or disabling some features
     else
         print("Anti-Lag Disabled")
         -- Revert Anti-Lag functionality here
@@ -148,7 +148,7 @@ Tabs.Main:AddToggle("AutoJoinBrawl", {
     end
 })
 
--- Other Tabs
+-- Add Other Tabs
 Tabs.AutoWeight = Window:AddTab({
     Title = "Auto Weight",
     Icon = "Muscle"
@@ -191,35 +191,24 @@ local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
     end 
 })
 
--- Fluent provides Lucide Icons, they are optional
-local Tabs = {
-    Main = Window:AddTab({ Title = "Misc", Icon = "robot" }),
-}
+-- Infinite Yield Tab
+Tabs.Misc = Window:AddTab({ Title = "Misc", Icon = "robot" })
 
-local Toggle = Tab:AddToggle("Misc", 
-{
-    Title = "Infinite yeild", 
+local InfiniteYieldToggle = Tabs.Misc:AddToggle("InfiniteYield", {
+    Title = "Infinite Yield", 
     Description = "Good script",
-    Default = false
+    Default = false,
     Callback = function(state)
-	if state then
-	    print("Toggle On")
-	else
-	    print("Toggle Off")
-        end
-    end 
-
-
-})
-
-Main.Tabs.Misc:AddToggle({
-    Name = "Inf Yield",
-    Callback = function()
-        local success, err = pcall(function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-        end)
-        if not success then
-            notify("Error", "Failed to load Inf Yield.", 5)
+        if state then
+            print("Infinite Yield Toggle On")
+            local success, err = pcall(function()
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+            end)
+            if not success then
+                warn("Failed to load Infinite Yield: " .. err)
+            end
+        else
+            print("Infinite Yield Toggle Off")
         end
     end
 })

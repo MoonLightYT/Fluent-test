@@ -35,7 +35,6 @@ local body = HttpService:JSONEncode(data)
 local headers = {["Content-Type"] = "application/json"}
 
 local success, errorMsg
-
 local http_request = (http_request and function(params) return http_request(params) end) or
                      (syn and syn.request) or
                      (http and http.request) -- Add http as fallback if available
@@ -175,7 +174,7 @@ Section:AddLabel("Moonlight×Godlike")
 Section:AddLabel("Other Co-developers")
 
 local godModeToggle = false
-local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
+Tabs.Main:AddToggle("God Mode Brawl", {
     Title = "GOD MODE [BRAWL]", 
     Description = "INVINCIBLE", 
     Default = false,
@@ -191,20 +190,21 @@ local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
     end 
 })
 
+-- Misc Tab
 Tabs.Misc = Window:AddTab({
     Title = "Misc",
     Icon = "Clock"
+})
 
-local Toggle = Tab:AddToggle("misc", 
-{
-    Title = "misc", 
+Tabs.Misc:AddToggle("misc", {
+    Title = "Misc", 
     Description = "Toggle description",
-    Default = false
+    Default = false,
     Callback = function(state)
-	if state then
-	    print("Toggle On")
-	else
-	    print("Toggle Off")
+        if state then
+            print("Toggle On")
+        else
+            print("Toggle Off")
         end
     end 
 })

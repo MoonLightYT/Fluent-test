@@ -191,24 +191,6 @@ local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
     end 
 })
 
--- Infinite Yield Tab
-Tabs.Misc = Window:AddTab({ Title = "Misc", Icon = "robot" })
-
-local InfiniteYieldToggle = Tabs.Misc:AddToggle("InfiniteYield", {
-    Title = "Infinite Yield", 
-    Description = "Good script",
-    Default = false,
-    Callback = function(state)
-        if state then
-            print("Infinite Yield Toggle On")
-            local success, err = pcall(function()
-                loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-            end)
-            if not success then
-                warn("Failed to load Infinite Yield: " .. err)
-            end
-        else
-            print("Infinite Yield Toggle Off")
-        end
-    end
-})
+Tabs.TPGyms = Window:AddTab({
+    Title = "Misc",
+    Icon = "Clock"

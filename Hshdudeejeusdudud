@@ -13,3 +13,15 @@ local Window = Fluent:CreateWindow({
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "" }),
 }
+Misc = Window:AddTab({ Title = "Misc", Icon = "" }),
+}
+Auto Weight = Window:AddTab({ Title = "Auto Weight", Icon = "" }),
+}
+Auto Rebirth = Window:AddTab({ Title = "Auto Rebirth", Icon = "" }),
+}
+Auto Kill = Window:AddTab({ Title = "Auto Kill", Icon = "" }),
+}
+TP gyms = Window:AddTab({ Title = "TP gyms", Icon = "" }),
+}
+Credits = Window:AddTab({ Title = "Credits", Icon = "" }),
+}

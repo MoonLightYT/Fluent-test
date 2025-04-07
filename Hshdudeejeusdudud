@@ -6,22 +6,16 @@ local Window = Fluent:CreateWindow({
     Size = UDim2.fromOffset(580, 460),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Darker",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when there's no MinimizeKeybind
 })
 
 -- Fluent provides Lucide Icons, they are optional
 local Tabs = {
     Main = Window:AddTab({ Title = "Main", Icon = "" }),
-}
-Misc = Window:AddTab({ Title = "Misc", Icon = "" }),
-}
-Auto Weight = Window:AddTab({ Title = "Auto Weight", Icon = "" }),
-}
-Auto Rebirth = Window:AddTab({ Title = "Auto Rebirth", Icon = "" }),
-}
-Auto Kill = Window:AddTab({ Title = "Auto Kill", Icon = "" }),
-}
-TP gyms = Window:AddTab({ Title = "TP gyms", Icon = "" }),
-}
-Credits = Window:AddTab({ Title = "Credits", Icon = "" }),
+    Misc = Window:AddTab({ Title = "Misc", Icon = "" }),
+    AutoWeight = Window:AddTab({ Title = "Auto Weight", Icon = "" }),
+    AutoRebirth = Window:AddTab({ Title = "Auto Rebirth", Icon = "" }),
+    AutoKill = Window:AddTab({ Title = "Auto Kill", Icon = "" }),
+    TPGyms = Window:AddTab({ Title = "TP gyms", Icon = "" }),
+    Credits = Window:AddTab({ Title = "Credits", Icon = "" }),
 }

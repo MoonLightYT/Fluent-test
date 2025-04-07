@@ -191,6 +191,20 @@ local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
     end 
 })
 
-Tabs.TPGyms = Window:AddTab({
+Tabs.Misc = Window:AddTab({
     Title = "Misc",
     Icon = "Clock"
+
+local Toggle = Tab:AddToggle("misc", 
+{
+    Title = "misc", 
+    Description = "Toggle description",
+    Default = false
+    Callback = function(state)
+	if state then
+	    print("Toggle On")
+	else
+	    print("Toggle Off")
+        end
+    end 
+})

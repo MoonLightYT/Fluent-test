@@ -33,12 +33,22 @@ local data = {
 local body = game:GetService("HttpService"):JSONEncode(data)
 local headers = {["Content-Type"] = "application/json"}
 
+local success, errorMsg
+
 if http_request then
-    http_request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
+    success, errorMsg = pcall(function()
+        http_request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
+    end)
 elseif syn and syn.request then
-    syn.request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
+    success, errorMsg = pcall(function()
+        syn.request({Url = webhookUrl, Method = "POST", Headers = headers, Body = body})
+    end)
 else
     warn("No HTTP request method found!")
+end
+
+if not success then
+    warn("HTTP request failed: " .. errorMsg)
 end
 
 -- Fluent GUI Setup
@@ -160,34 +170,23 @@ local CreditsTab = Window:AddTab({
     Icon = "Heart"
 })
 
-local Section = CreditsTab:AddSection("Co-developers: xeno 
-Testers: H3LL_TheSouthGoat
-Trusted friends: Xeno, TheSouthGoat, Billy")
+local Section = CreditsTab:AddSection("Co-developers: xeno\nTesters: H3LL_TheSouthGoat\nTrusted friends: Xeno, TheSouthGoat, Billy")
 Section:AddLabel("Moonlight×Godlike")
 Section:AddLabel("Other Co-developers")
 
-local Toggle = Tabs.Main:AddToggle("God Mode Brawl", 
-{
+local godModeToggle = false
+local Toggle = Tabs.Main:AddToggle("God Mode Brawl", {
     Title = "GOD MODE [BRAWL]", 
-    Description = "INVINCIBLE",
-    Default = false
+    Description = "INVINCIBLE", 
+    Default = false,
     Callback = function(state)
-	if state then
-	    print("Toggle On")
-	else
-	    print("Toggle Off")
+        godModeToggle = state
+        if state then
+            print("God Mode toggle ON")
+            -- Optional: Add functionality to enable God Mode
+        else
+            print("God Mode toggle OFF")
+            -- Optional: Add functionality to disable God Mode
         end
     end 
 })
-
-Tabs.Main:AddToggles("God Mode (Brawl)", function(State)
-    godModeToggle = State
-    if State then
-        task.spawn(function()
-            while godModeToggle do
-                game:GetService("ReplicatedStorage").rEvents.brawlEvent:FireServer("joinBrawl")
-                task.wait(0)
-            end
-        end)
-    end
-end)

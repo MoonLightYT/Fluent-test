@@ -19,3 +19,17 @@ local Tabs = {
     TPGyms = Window:AddTab({ Title = "TP gyms", Icon = "" }),
     Credits = Window:AddTab({ Title = "Credits", Icon = "" }),
 }
+
+local Toggle = Tab.Main:AddToggle("ANTI AFK", 
+{
+    Title = "Anti AFK", 
+    Description = "stops you from being kicked for idle",
+    Default = false
+    Callback = function(state)
+	if state then
+	    print("Toggle On")
+	else
+	    print("Toggle Off")
+        end
+    end 
+})

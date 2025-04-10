@@ -20,112 +20,23 @@ local Tabs = {
     Credits = Window:AddTab({ Title = "Credits", Icon = "" }),
 }
 
-local godModeToggle = false
-local autoJoinToggle = false
-
-local Toggle = Tabs.Misc:AddToggle("ANTI AFK", { -- Changed Tab to Tabs
-    Title = "Anti AFK", 
-    Description = "Stops you from being kicked for idle",
-    Default = false, -- Added missing comma here
-    Callback = function(state)
-        if state then
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
-        else
-            print("Toggle Off")
-        end
-    end 
-})
-
-local Toggle = Tabs.Misc:AddToggle("God Mode (Brawl)", {
-    Title = "God Mode (Brawl)",
-    Default = false,
-    Callback = function(State)
-        godModeToggle = State
-        if State then
-            task.spawn(function()
-                while godModeToggle do
-                    game:GetService("ReplicatedStorage").rEvents.brawlEvent:FireServer("joinBrawl")
-                    task.wait(0)
-                end
-            end)
-        end
+Tabs["Misc"]:AddButton({
+    Title = "Anti AFK",
+    Description = "You dont get kicked for being idle",
+    Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
     end
 })
 
-local Toggle = Tabs.Misc:AddToggle("Auto Join Brawl", {
-    Title = "Auto Join Brawl",
-    Default = false,
-    Callback = function(State)
-        autoJoinToggle = State
-        if State then
-            task.spawn(function()
-                while autoJoinToggle do
-                    game:GetService("ReplicatedStorage").rEvents.brawlEvent:FireServer("joinBrawl")
-                    task.wait(2)
-                end
-            end)
-        end
-    end
-})
+Tabs["Misc"]:AddButton({
+    Title = "Anti Lag",
+    Description = "Destroys textures to run smoother",
+    Callback = function()
+        
 
-local isAntiLagEnabled = false -- Make sure to initialize this variable.
 
-local Toggle = Tabs.Misc:AddToggle("Anti Lag", {
-    Title = "Enable Anti Lag",
-    Description = "Optimizes the game for lower performance",
-    Default = false,
-    Callback = function(State)
-        isAntiLagEnabled = State
-        applyAntiLag() -- Call the function when toggle is changed
-    end
-})
 
-local function applyAntiLag()
-    if isAntiLagEnabled then
-        local decalsyeeted = true
-        local gameService = game
-        local workspace = gameService.Workspace
-        local lighting = gameService.Lighting
-        local terrain = workspace.Terrain
-        
-        -- Optimize Terrain
-        terrain.WaterWaveSize = 0
-        terrain.WaterWaveSpeed = 0
-        terrain.WaterReflectance = 0
-        terrain.WaterTransparency = 0
-        
-        -- Optimize Lighting
-        lighting.GlobalShadows = false
-        lighting.FogEnd = 9e9
-        lighting.Brightness = 0
-        settings().Rendering.QualityLevel = "Level01"
-        
-        -- Iterate through all descendants
-        for _, v in pairs(gameService:GetDescendants()) do
-            if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-                v.Material = "Plastic"
-                v.Reflectance = 0
-            elseif (v:IsA("Decal") or v:IsA("Texture")) and decalsyeeted then
-                v.Transparency = 1
-            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-                v.Lifetime = NumberRange.new(0)
-            elseif v:IsA("Explosion") then
-                v.BlastPressure = 1
-                v.BlastRadius = 1
-            elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
-                v.Enabled = false
-            elseif v:IsA("MeshPart") then
-                v.Material = "Plastic"
-                v.Reflectance = 0
-                v.TextureID = 10385902758728957
-            end
-        end
-        
-        -- Iterate through all lighting effects
-        for _, e in pairs(lighting:GetChildren()) do
-            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-                e.Enabled = false
-            end
-        end
-    end
-end
+
+
+
+

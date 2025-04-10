@@ -29,7 +29,7 @@ local Toggle = Tabs.Misc:AddToggle("ANTI AFK", { -- Changed Tab to Tabs
     Default = false, -- Added missing comma here
     Callback = function(state)
         if state then
-            print("Toggle On")
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
         else
             print("Toggle Off")
         end
